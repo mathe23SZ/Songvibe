@@ -28,8 +28,17 @@
         </button>
       </div>
 
-      <div id="progess-bar">
-        <div id="current-progress"></div>
+      <div class="progress-container">
+        <span id="current-time" class="time light-color">0:00</span>
+        <input
+          type="range"
+          id="progress-bar"
+          min="0"
+          max="100"
+          value="0"
+          step="1"
+        />
+        <span id="total-time" class="time light-color">0:00</span>
       </div>
 
       <div id="button-container">
@@ -45,7 +54,9 @@
         <button id="next" class="button button-navigate">
           <i class="bi bi-caret-right-fill"></i>
         </button>
-        <button id="repeat" class="button"><i class="bi bi-repeat"></i></button>
+        <button id="repeat" class="button">
+          <i class="bi bi-repeat"></i>
+        </button>
       </div>
     </div>
     <script src="script.js"></script>

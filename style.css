@@ -12,6 +12,7 @@ button {
   background-color: inherit;
   color: inherit;
   border: none;
+  cursor: pointer;
 }
 
 #below-cover {
@@ -62,16 +63,47 @@ button {
   color: rgb(193, 196, 197);
 }
 
-#progess-bar {
-  background-color: rgb(193, 196, 197);
-  height: 3px;
+.progress-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  border-radius: 15px;
+  margin: 1em 0;
 }
 
-#current-progress {
-  background-color: white;
-  height: inherit;
-  width: 50%;
-  border-radius: inherit;
+.time {
+  font-size: 0.9em;
+  width: 45px;
+  text-align: center;
+}
+
+#progress-bar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 70%;
+  height: 6px;
+  background-color: rgb(193, 196, 197);
+  border-radius: 15px;
+  outline: none;
+  cursor: pointer;
+}
+
+#progress-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+}
+
+#progress-bar::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: none;
 }

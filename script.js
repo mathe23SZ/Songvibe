@@ -5,6 +5,9 @@ const cover = document.getElementById("cover");
 const play = document.getElementById("play");
 const next = document.getElementById("next");
 const back = document.getElementById("back");
+const progressBar = document.getElementById("progress-bar");
+const currentTimeDisplay = document.getElementById("current-time");
+const totalTimeDisplay = document.getElementById("total-time");
 
 const theWayIAre = {
   songName: "The Way I Are",
@@ -55,6 +58,8 @@ function initializeSong() {
   song.src = `songs/${playlist[index].File}.mp3`;
   songName.innerText = playlist[index].songName;
   bandName.innerText = playlist[index].bandName;
+  progressBar.value = 0;
+  currentTimeDisplay.innerText = "0:00";
 }
 
 function backSong() {
@@ -71,11 +76,42 @@ function nextSong() {
   if (index === playlist.length - 1) {
     index = 0;
   } else {
-    index = 1;
+    index += 1;
   }
   initializeSong();
   playSong();
 }
+
+function formatTime(timeInSeconds) {
+  if (isNaN(timeInSeconds)) return "0:00";
+  const minutes = Math.floor(timeInSeconds / 60);
+  const seconds = Math.floor(timeInSeconds % 60);
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+}
+
+function updateProgress() {
+  currentTimeDisplay.innerText = formatTime(song.currentTime);
+  if (song.duration) {
+    progressBar.value = (song.currentTime / song.duration) * 100;
+  }
+}
+
+function jumpTo() {
+  if (song.duration) {
+    const jumpTime = (progressBar.value / 100) * song.duration;
+    song.currentTime = jumpTime;
+  }
+}
+
+song.addEventListener("loadedmetadata", () => {
+  totalTimeDisplay.innerText = formatTime(song.duration);
+});
+
+// Passa para a próxima música automaticamente quando a atual acaba
+song.addEventListener("ended", nextSong);
+
+song.addEventListener("timeupdate", updateProgress);
+progressBar.addEventListener("input", jumpTo);
 
 initializeSong();
 
