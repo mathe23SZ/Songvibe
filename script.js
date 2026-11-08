@@ -8,6 +8,9 @@ const back = document.getElementById("back");
 const progressBar = document.getElementById("progress-bar");
 const currentTimeDisplay = document.getElementById("current-time");
 const totalTimeDisplay = document.getElementById("total-time");
+const volumeIcon = document.getElementById("volume-icon");
+const volumeBar = document.getElementById("volume-bar");
+let currentVolume = 1; // Memória para restaurar o volume ao desmutar
 
 const theWayIAre = {
   songName: "The Way I Are",
@@ -103,6 +106,42 @@ function jumpTo() {
   }
 }
 
+// Atualiza o volume ao arrastar a barra
+function updateVolume() {
+  song.volume = volumeBar.value;
+  currentVolume = song.volume; // Salva o volume atual
+  updateVolumeIcon();
+}
+
+// Muta ou desmuta ao clicar no ícone
+function toggleMute() {
+  if (song.volume > 0) {
+    // Se tem som, muta
+    song.volume = 0;
+    volumeBar.value = 0;
+  } else {
+    // Se está mutado, volta pro volume salvo
+    song.volume = currentVolume > 0 ? currentVolume : 1;
+    volumeBar.value = song.volume;
+  }
+  updateVolumeIcon();
+}
+
+// Troca o ícone (Alto, Baixo, Mudo) dinamicamente
+function updateVolumeIcon() {
+  const icon = volumeIcon.querySelector("i");
+  // Limpa todos os ícones possíveis primeiro
+  icon.classList.remove("bi-volume-up-fill", "bi-volume-down-fill", "bi-volume-mute-fill");
+  
+  if (song.volume === 0) {
+    icon.classList.add("bi-volume-mute-fill");
+  } else if (song.volume < 0.5) {
+    icon.classList.add("bi-volume-down-fill");
+  } else {
+    icon.classList.add("bi-volume-up-fill");
+  }
+}
+
 song.addEventListener("loadedmetadata", () => {
   totalTimeDisplay.innerText = formatTime(song.duration);
 });
@@ -118,3 +157,5 @@ initializeSong();
 play.addEventListener("click", playPauseDecider);
 back.addEventListener("click", backSong);
 next.addEventListener("click", nextSong);
+volumeBar.addEventListener("input", updateVolume);
+volumeIcon.addEventListener("click", toggleMute);
