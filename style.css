@@ -67,7 +67,6 @@ button {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
   margin: 1em 0;
 }
@@ -78,10 +77,12 @@ button {
   text-align: center;
 }
 
+/* Alterado para flex: 1 para se ajustar suavemente */
 #progress-bar {
   -webkit-appearance: none;
   appearance: none;
-  width: 70%;
+  flex: 1; 
+  margin: 0 15px; 
   height: 6px;
   background-color: rgb(193, 196, 197);
   border-radius: 15px;
@@ -102,6 +103,61 @@ button {
 #progress-bar::-moz-range-thumb {
   width: 15px;
   height: 15px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: none;
+}
+
+/* =========================================
+   ESTILOS DO CONTROLADOR DE VOLUME
+========================================= */
+#volume-container {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+}
+
+#volume-icon {
+  font-size: 1.2em; /* Levemente menor que os botões centrais */
+  cursor: pointer;
+}
+
+/* A barra de volume começa escondida (width 0 e opacity 0) */
+#volume-bar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0; 
+  height: 4px;
+  background-color: rgb(193, 196, 197);
+  border-radius: 15px;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+  /* Transição suave de 0.3 segundos para abrir */
+  transition: width 0.3s ease, opacity 0.3s ease, margin-left 0.3s ease;
+}
+
+/* Quando o mouse passa no container, a barra aparece */
+#volume-container:hover #volume-bar {
+  width: 80px;
+  opacity: 1;
+  margin-left: 10px;
+}
+
+#volume-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+}
+
+#volume-bar::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: white;
   cursor: pointer;
