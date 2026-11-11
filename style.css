@@ -1,11 +1,13 @@
 body {
   background-image: linear-gradient(rgb(75, 114, 93), rgb(111, 156, 126));
   height: 100vh;
+  margin: 0; /* Remove a margem padrão do navegador */
   color: white;
   font-family: sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* Centraliza todo o conteúdo verticalmente no meio da tela */
 }
 
 button {
@@ -48,10 +50,12 @@ button {
 }
 
 #playlist-tittle {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 1em 0 4em 0;
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  margin: 0;
+  font-size: 2.5em; /* Aumenta o tamanho da fonte */
+  font-weight: bold;
 }
 
 #song-name {
